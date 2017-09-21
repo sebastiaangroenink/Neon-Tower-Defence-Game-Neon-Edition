@@ -8,6 +8,7 @@ public class MouseManager : MonoBehaviour
 
     public TileManager tileManager;
     public BuildMenu buildMenu;
+    public UIScript uiManager;
 
     public GameObject tileHolder;
 

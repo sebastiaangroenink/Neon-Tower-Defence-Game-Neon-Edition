@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour {
+
     public Vector2 mapSize;
+
     public Transform tile;
 
     [Range(0,1)]
@@ -14,11 +16,6 @@ public class MapGenerator : MonoBehaviour {
 
 	}
 	
-
-	void Update () {
-		
-	}
-
     void GenerateMap()
     {
         for (int x = 0; x < mapSize.x; x++)

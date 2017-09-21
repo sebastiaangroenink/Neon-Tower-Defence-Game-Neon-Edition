@@ -8,18 +8,31 @@ public class UIScript : MonoBehaviour
 {
 
     public Button sell;
-    public List<Button> towers = new List<Button>();
-
-    private CanvasGroup visibility;
+    public List<Button> towerButtons = new List<Button>();
 
     private void Start()
     {
-        visibility = GetComponent<CanvasGroup>();
-
         sell.gameObject.SetActive(false);
-        for (int tower = 0; tower < towers.Count; tower++)
+        SetTowers(0);
+    }
+
+    public void SetTowers(int i)
+    {
+        if (i == 0 )
         {
-            towers[tower].gameObject.SetActive(false);
+
+            for (int tower = 0; tower < towerButtons.Count; tower++)
+            {
+                towerButtons[tower].gameObject.SetActive(false);
+            }
+        }
+        else if(i == 1)
+        {
+
+            for (int tower = 0; tower < towerButtons.Count; tower++)
+            {
+                towerButtons[tower].gameObject.SetActive(true);
+            }
         }
     }
 }
