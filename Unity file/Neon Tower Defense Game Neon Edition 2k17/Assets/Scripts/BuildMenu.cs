@@ -16,23 +16,22 @@ public class BuildMenu : MonoBehaviour {
     {
         tileManager = mouseManager.tileManager;
 
-        if (tileManager!= null && tileManager.isActive && !tileManager.hasBuilding)
+        if (tileManager!= null && tileManager.isActive)
         {
-            print("3");
-                for(int towerMaterials =0; towerMaterials< uiManager.towerButtons.Count; towerMaterials++)
+            if (!tileManager.hasBuilding)
+            {
+                for (int towerMaterials = 0; towerMaterials < uiManager.towerButtons.Count; towerMaterials++)
                 {
                     uiManager.towerButtons[towerMaterials].gameObject.SetActive(true);
+                    uiManager.sell.gameObject.SetActive(false);
                 }
-        }
-        if(tileManager != null && tileManager.isActive && tileManager.hasBuilding)
-        {
-            uiManager.sell.gameObject.SetActive(true);
-            uiManager.SetTowers(0);
-            print("1");
-        }
-        else
-        {
-            uiManager.sell.gameObject.SetActive(false);
+            }
+            else
+            {
+                uiManager.sell.gameObject.SetActive(true);
+                uiManager.SetTowers(0);
+
+            }
         }
     }
 

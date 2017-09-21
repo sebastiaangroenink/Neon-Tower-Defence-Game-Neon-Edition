@@ -5,8 +5,8 @@ using UnityEngine;
 public class ProjectileHandler : MonoBehaviour {
 
     public TroopsHandler troopReference;
-    public enum team {teamOne, teamTwo}
-    public team state;
+    public enum Team {teamOne, teamTwo}
+    public Team state;
 
     public Vector3 target;
 
@@ -21,12 +21,12 @@ public class ProjectileHandler : MonoBehaviour {
     }
 
     public void OnCollisionEnter(Collision c) {
-        if(troopReference.state == TroopsHandler.team.teamOne && state == team.teamTwo) {
+        if(troopReference.state == TroopsHandler.Team.teamOne && state == Team.teamTwo) {
             c.transform.GetComponent<TroopsHandler>().debuff = debuffs;
             c.transform.GetComponent<TroopsHandler>().health = -damage;
             Destroy(gameObject);
         }
-        if (troopReference.state == TroopsHandler.team.teamTwo && state == team.teamOne) {
+        if (troopReference.state == TroopsHandler.Team.teamTwo && state == Team.teamOne) {
             c.transform.GetComponent<TroopsHandler>().debuff = debuffs;
             c.transform.GetComponent<TroopsHandler>().health = -damage;
             Destroy(gameObject);

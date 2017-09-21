@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TroopsHandler : MonoBehaviour {
 
-    public enum team {teamOne, teamTwo}
-    public team state;
+    public enum Team {teamOne, teamTwo}
+    public Team state;
 
     public int moneyDrop;
 
@@ -52,12 +52,12 @@ public class TroopsHandler : MonoBehaviour {
 
         if (gameTick < 0) {
             gameTick = 0;
-            if (debuff[1] == true) {
+            if (debuff[1]) {
                 health = -1;
                 gameTick = 1;
             }
 
-            if (debuff[2] == true) {
+            if (debuff[2]) {
                 health = -5;
                 gameTick = 1;
             }
@@ -73,7 +73,7 @@ public class TroopsHandler : MonoBehaviour {
             debuff[2] = false;
         }
 
-        if (debuff[1] == true) {
+        if (debuff[1]) {
             poisonTimer -= 1 * Time.deltaTime;
         } else if (debuff[1] == false) {
             poisonTimer = poisonTimerBase;
@@ -81,10 +81,11 @@ public class TroopsHandler : MonoBehaviour {
 
         transform.position = Vector3.MoveTowards(transform.position, target[index].transform.position, walkingSpeed);
 
-        if (debuff[0] == true) {
+        if (debuff[0]) {
             walkingSpeed = walkingSpeedDecreased;
             slowTimer = -1 * Time.deltaTime;
-        } else if (debuff[0] == false) {
+
+        } else if (!debuff[0]) {
             walkingSpeed = walkingSpeedRegular;
             slowTimer = slowTimerBase;
         }
@@ -94,8 +95,8 @@ public class TroopsHandler : MonoBehaviour {
                 index++;
             }
         }
-
-        if (transform.position == target[target.Count].transform.position) {
+        else if(transform.position == target[target.Count].transform.position)
+        {
             canAttackCastle = true;
         }
     }

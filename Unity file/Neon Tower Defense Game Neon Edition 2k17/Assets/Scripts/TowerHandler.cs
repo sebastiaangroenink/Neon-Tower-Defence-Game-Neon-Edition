@@ -37,8 +37,8 @@ public class TowerHandler : MonoBehaviour {
     public List<bool> debuff = new List<bool>();
     public List<GameObject> targets = new List<GameObject>();
 
-    public enum team {teamOne, teamTwo}
-    public team state;
+    public enum Team {teamOne, teamTwo}
+    public Team state;
 
     public bool isTroop;
 
@@ -56,11 +56,11 @@ public class TowerHandler : MonoBehaviour {
     public void Awake() {
         GetComponent<Renderer>().material = towerSkin;
 
-        if(state == team.teamOne) {
+        if(state == Team.teamOne) {
             isTeamOne = true;
         }
 
-        if(state == team.teamTwo) {
+        if(state == Team.teamTwo) {
             isTeamTwo = true;
         }
     }
@@ -100,40 +100,40 @@ public class TowerHandler : MonoBehaviour {
     public void OnCollisionEnter(Collision c) {
         index = Random.Range(0, targets.Count);
 
-        if(debuff[3] == true && healingCoolDown == 0) {
-        if(c.transform.GetComponent<TroopsHandler>().state == TroopsHandler.team.teamOne && state == team.teamOne && isTroop == true) {
-            c.transform.GetComponent<TroopsHandler>().health += healingAmount;
-            print("Healing TeamOne Members within range!");
-            healingCoolDown = healingCoolDownBase;
-        }
+        if (debuff[3] && healingCoolDown == 0 && isTroop)
+        {
 
-            if (c.transform.GetComponent<TroopsHandler>().state == TroopsHandler.team.teamTwo && state == team.teamTwo && isTroop == true) {
+            healingCoolDown = healingCoolDownBase;
+
+            if (state == Team.teamOne && c.transform.GetComponent<TroopsHandler>().state == TroopsHandler.Team.teamOne)
+            {
+                c.transform.GetComponent<TroopsHandler>().health += healingAmount;
+                print("Healing TeamOne Members within range!");
+            }
+            else if (state == Team.teamTwo && c.transform.GetComponent<TroopsHandler>().state == TroopsHandler.Team.teamTwo)
+            {
                 c.transform.GetComponent<TroopsHandler>().health += healingAmount;
                 print("Healing TeamTwo Members within range!");
-                healingCoolDown = healingCoolDownBase;
             }
         }
     }
 
     public void FiringProjectile() {
-        if (isTeamOne == true) {
-            Instantiate(projectile, transform.position, target.transform.rotation);
-            projectile.GetComponent<ProjectileHandler>().debuffs = debuff;
-            projectile.GetComponent<ProjectileHandler>().damage = damage;
-            projectile.GetComponent<ProjectileHandler>().state = ProjectileHandler.team.teamOne;
-            projectile.GetComponent<ProjectileHandler>().target = targets[index].transform.position;
-            projectile.GetComponent<ProjectileHandler>().projectileSpeed = projectileSpeed;
-            projectileInterval = projectileIntervalBase;
-        }
+        Instantiate(projectile, transform.position, target.transform.rotation);
+        projectile.GetComponent<ProjectileHandler>().debuffs = debuff;
+        projectile.GetComponent<ProjectileHandler>().damage = damage;
+        projectile.GetComponent<ProjectileHandler>().state = ProjectileHandler.Team.teamOne;
+        projectile.GetComponent<ProjectileHandler>().target = targets[index].transform.position;
+        projectile.GetComponent<ProjectileHandler>().projectileSpeed = projectileSpeed;
+        projectileInterval = projectileIntervalBase;
 
-        if (isTeamTwo == true) {
-            Instantiate(projectile, transform.position, target.transform.rotation);
-            projectile.GetComponent<ProjectileHandler>().debuffs = debuff;
-            projectile.GetComponent<ProjectileHandler>().damage = damage;
-            projectile.GetComponent<ProjectileHandler>().state = ProjectileHandler.team.teamTwo;
-            projectile.GetComponent<ProjectileHandler>().target = targets[index].transform.position;
-            projectile.GetComponent<ProjectileHandler>().projectileSpeed = projectileSpeed;
-            projectileInterval = projectileIntervalBase;
+        if (isTeamOne)
+        {
+            projectile.GetComponent<ProjectileHandler>().state = ProjectileHandler.Team.teamOne;
+        }
+        else if (isTeamTwo)
+        {
+            projectile.GetComponent<ProjectileHandler>().state = ProjectileHandler.Team.teamTwo;
         }
     }
 }
