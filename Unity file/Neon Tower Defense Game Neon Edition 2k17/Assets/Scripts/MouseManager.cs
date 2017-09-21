@@ -11,13 +11,6 @@ public class MouseManager : MonoBehaviour
 
     public GameObject tileHolder;
 
-
-    void Start()
-    {
-
-    }
-
-
     void Update()
     {
         ShootRay();
@@ -28,13 +21,14 @@ public class MouseManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            if (tileHolder != null)
-            {
-                tileManager.isActive = false;
-            }
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100) && hit.transform.tag == "Tile")
             {
+                if (tileManager != null && tileManager.isActive)
+                {
+                    tileManager.isActive = false;
+                }
                 tileManager = hit.transform.GetComponent<TileManager>();
                 tileManager.isActive = true;
                 tileHolder = hit.transform.gameObject;
@@ -50,6 +44,7 @@ public class MouseManager : MonoBehaviour
             if (tileManager.isActive)
             {
                 tileManager.isActive = false;
+                buildMenu.TowerManagement();
             }
         }
     }

@@ -16,10 +16,10 @@ public class UIScript : MonoBehaviour
     {
         visibility = GetComponent<CanvasGroup>();
 
-        sell.GetComponent<CanvasGroup>().alpha = 0;
+        sell.gameObject.SetActive(false);
         for (int tower = 0; tower < towers.Count; tower++)
         {
-            towers[tower].GetComponent<CanvasGroup>().alpha = 0;
+            towers[tower].gameObject.SetActive(false);
         }
     }
 }

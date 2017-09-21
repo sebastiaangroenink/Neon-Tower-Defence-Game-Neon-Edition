@@ -16,32 +16,42 @@ public class BuildMenu : MonoBehaviour {
     {
         tileManager = mouseManager.tileManager;
 
-        if (tileManager.isActive)
+        if (tileManager!= null && tileManager.isActive)
         {
             if (tileManager.hasBuilding == false){
                 for(int towers =0; towers< uiManager.towers.Count; towers++)
                 {
-                    uiManager.towers[towers].GetComponent<CanvasGroup>().alpha = 1;
+                    uiManager.towers[towers].gameObject.SetActive(true);
                 }
-                uiManager.sell.GetComponent<CanvasGroup>().alpha = 1;
+
             }
             else if(tileManager.hasBuilding)
             {
-                //todo show sell UI button
+                uiManager.sell.gameObject.SetActive(false);
             }
         }
-        else
-        {
-            for(int towers=0; towers<uiManager.towers.Count; towers++)
+        else if (tileManager != null && !tileManager.isActive) {
             {
-                uiManager.towers[towers].GetComponent<CanvasGroup>().alpha = 0;
+                for (int towers = 0; towers < uiManager.towers.Count; towers++)
+                {
+                    uiManager.towers[towers].gameObject.SetActive(false);
+                    uiManager.sell.gameObject.SetActive(false);
+                }
             }
-            uiManager.sell.GetComponent<CanvasGroup>().alpha = 0;
         }
     }
 
     public void BuildTower(int towerInt)
     {
-        Instantiate(towers[towerInt],new Vector3(tileManager.gameObject.transform.position.x,tileManager.gameObject.transform.position.y+1,tileManager.gameObject.transform.position.z), Quaternion.Euler(Vector3.right * 90));
+        GameObject spawnTower = towers[towerInt];
+        Instantiate(spawnTower,tileManager.transform);
+        tileManager.hasBuilding = true;
+
+    }
+
+    public void SellTower()
+    {
+        print("sold tower");
+        tileManager.hasBuilding = false;
     }
 }
