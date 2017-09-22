@@ -45,16 +45,12 @@ public class TowerHandler : MonoBehaviour {
     private bool isTeamOne;
     private bool isTeamTwo;
 
-    public Material towerSkin;
-    [Tooltip("This is the skin of the tower:")]
-
     public SphereCollider ArealEffect;
 
     public GameObject projectile;
     public GameObject target;
 
     public void Awake() {
-        GetComponent<Renderer>().material = towerSkin;
 
         if(state == Team.teamOne) {
             isTeamOne = true;
