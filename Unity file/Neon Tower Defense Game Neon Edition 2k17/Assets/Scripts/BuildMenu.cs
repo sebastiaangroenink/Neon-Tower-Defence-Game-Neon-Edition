@@ -9,9 +9,12 @@ public class BuildMenu : MonoBehaviour {
     public UIScript          uiManager;
     public CurrencyManager   currencyManager;
     public TowerCosts        towerCosts;
+    public TowerHandler      otherTowerScriptReference;
+    public TowerHandler      thisTowerScriptReference;
 
 
     public List<Material>    towerMaterials = new List<Material>();
+    public List<GameObject>  towerUpgrades = new List<GameObject>();
     public List<Button>      towerButtonList = new List<Button>();
     public Material          tileMaterial;
 
@@ -41,6 +44,8 @@ public class BuildMenu : MonoBehaviour {
 
     public void BuildTower(int towerInt)
     {
+        otherTowerScriptReference = towerUpgrades[towerInt].GetComponent<TowerHandler>();
+        thisTowerScriptReference = tileManager.GetComponent<TowerHandler>();
         towerCosts = towerButtonList[towerInt].GetComponent<TowerCosts>();
 
         if (towerCosts.cost < currencyManager.currency){
@@ -48,6 +53,19 @@ public class BuildMenu : MonoBehaviour {
             tileManager.hasBuilding = true;
             tileManager.GetComponent<TowerHandler>().enabled = true;
             currencyManager.currency -= towerCosts.cost;
+
+            thisTowerScriptReference.name = otherTowerScriptReference.name;
+            thisTowerScriptReference.description = otherTowerScriptReference.description;
+            thisTowerScriptReference.sellPrice = otherTowerScriptReference.sellPrice;
+            thisTowerScriptReference.damage = otherTowerScriptReference.damage;
+            thisTowerScriptReference.canAttack = otherTowerScriptReference.canAttack;
+            thisTowerScriptReference.arialRangeScale = otherTowerScriptReference.arialRangeScale;
+            thisTowerScriptReference.projectileIntervalBase = otherTowerScriptReference.projectileIntervalBase;
+            thisTowerScriptReference.projectileSpeed = otherTowerScriptReference.projectileSpeed;
+            thisTowerScriptReference.debuff = otherTowerScriptReference.debuff;
+            thisTowerScriptReference.towerSkin = otherTowerScriptReference.towerSkin;
+            thisTowerScriptReference.projectileReference = otherTowerScriptReference.projectileReference;
+
             print(currencyManager.currency);
         }
     }

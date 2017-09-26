@@ -153,11 +153,18 @@ MonoBehaviour:
   uiManager: {fileID: 814049655}
   currencyManager: {fileID: 1421229947}
   towerCosts: {fileID: 0}
+  otherTowerScriptReference: {fileID: 0}
+  thisTowerScriptReference: {fileID: 0}
   towerMaterials:
   - {fileID: 2100000, guid: 0c310f8e8db391d448aed7332cc4127e, type: 2}
   - {fileID: 2100000, guid: 92f0a05302d76274cb703b112f3b6ef2, type: 2}
   - {fileID: 2100000, guid: 0b7675e7cd0529f458a7e9a741bbd4cd, type: 2}
   - {fileID: 2100000, guid: 14b74c1ad0984e545ab13f69461de4fc, type: 2}
+  towerUpgrades:
+  - {fileID: 1116826974}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   towerButtonList:
   - {fileID: 341712556}
   - {fileID: 252381418}
@@ -1499,8 +1506,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Archer Tower
-  Description: Shoots single target arrows, High Range, Med damage.
-  sellPrice: 0
+  description: Shoots arrows, quite fast, reasonable damage, pretty decent i guess?
+  sellPrice: 75
   damage: 5
   canAttack: 1
   arialRangeScale: 0
@@ -1511,6 +1518,7 @@ MonoBehaviour:
   allies: []
   projectileReference: {fileID: 0}
   troopRef: {fileID: 0}
+  towerhandler: {fileID: 0}
   state: 0
   towerSkin: {fileID: 2100000, guid: 0c310f8e8db391d448aed7332cc4127e, type: 2}
   ArealEffect: {fileID: 0}

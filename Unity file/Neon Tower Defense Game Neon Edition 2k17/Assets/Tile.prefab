@@ -172,28 +172,29 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1165247075479796}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 686ca1fd70926d3498bb109c5daba8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   name: 
-  Description: 
-  price: 0
-  health: 0
+  description: 
+  sellPrice: 0
   damage: 0
   canAttack: 0
   arialRangeScale: 0
-  projectileInterval: 0
   projectileIntervalBase: 0
   projectileSpeed: 0
   debuff: 00000000
   targets: []
+  allies: []
+  projectileReference: {fileID: 0}
+  troopRef: {fileID: 0}
+  towerhandler: {fileID: 0}
   state: 0
-  isTroop: 0
+  towerSkin: {fileID: 0}
   ArealEffect: {fileID: 135462823381390632}
-  projectile: {fileID: 1432546308505988, guid: 476f22c7819633144b224f853edcdb0c, type: 2}
-  target: {fileID: 0}
+  projectile: {fileID: 1331850847074020, guid: 32182f11435f4a743bc577ae9bac3128, type: 2}
 --- !u!114 &114550903401875662
 MonoBehaviour:
   m_ObjectHideFlags: 1

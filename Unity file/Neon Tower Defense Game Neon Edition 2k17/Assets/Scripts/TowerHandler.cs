@@ -9,7 +9,7 @@ public class TowerHandler : MonoBehaviour {
 
     public string name;
 
-    public string Description;
+    public string description;
 
     public int sellPrice;
     [Tooltip("Sellprice of a tower:")]
@@ -35,6 +35,7 @@ public class TowerHandler : MonoBehaviour {
 
     public ProjectileHandler projectileReference;
     public TroopsHandler troopRef;
+    public TowerHandler towerhandler;
 
     public enum Team { teamOne, teamTwo }
     public Team state;
