@@ -4,116 +4,153 @@ using UnityEngine;
 
 public class TroopsHandler : MonoBehaviour {
 
-    public enum Team {teamOne, teamTwo}
+    public enum Team { teamOne, teamTwo }
     public Team state;
 
     public int moneyDrop;
 
+    public string name;
+
     public int health;
     public int damage;
 
-    public int index;
+    private int index;
 
-    public int attackSpeed;
+    public float attackSpeed;
 
-    public GameObject thisObject;
+    private GameObject thisObject;
 
-    public int walkingSpeed;
+    private float walkingSpeed;
 
-    public int walkingSpeedRegular;
-    public int walkingSpeedDecreased;
+    public float walkingSpeedRegular = 2;
+    public float walkingSpeedDecreased = 1;
 
-    public bool canAttackCastle;
-    public bool isTroop = true;
+    private bool canAttackCastle;
 
-    private float gameTick = 1.0f;
+    public static bool isTroop = true;
+
+    private static float poisonTimerBase;
+    private static float incendiaryTimerBase;
+    private static float slowTimerBase;
+
+    private float poisonTimer;
+    private float incendiaryTimer;
+    private float slowTimer;
+
+    private static float gameTick = 1;
+
+    private TowerHandler towerRef;
 
     public List<bool> debuff = new List<bool>();
-    public List<float> debuffTimerBase = new List<float>();
-    public List<float> debuffTimer = new List<float>();
     public List<GameObject> target = new List<GameObject>();
+
+    public Vector3 targetMod;
+    public float height;
 
     public void Start() {
         thisObject = gameObject;
     }
 
     void Update() {
-        if(health <=0) {
+        targetMod = new Vector3(target[index].transform.position.x, height, target[index].transform.position.z);
+
+        gameTick -= 1 * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, targetMod, walkingSpeed);
+
+        if (health < 1) {
             Destroy(gameObject);
         }
 
-        gameTick -= 1 * Time.deltaTime;
-
         if (gameTick < 0) {
-            if (debuff[0])
-            {
-                walkingSpeed = walkingSpeedDecreased;
-            }
-            else
-            {
-                walkingSpeed = walkingSpeedRegular;
-            }
-
+            gameTick = 0;
             if (debuff[1]) {
-                health = -1;
+                health = health - 1;
+                print("Applied poison damage, current health of: " + name + " is: " + health);
+                print("Poison time remaining: " + poisonTimer);
             }
 
             if (debuff[2]) {
-                health = -5;
+                health = health - 5;
+                print("Applied incendiary damage, current health of: " + name + " is: " + health);
+                print("Incendiary time remaining: " + incendiaryTimer);
             }
             gameTick = 1;
         }
-        for(int i =0; i < debuffTimer.Count; i++)
-        {
-            if(debuffTimer[i] < 0)
-            {
-                debuff[i] = false; //slow[0] poison[1] incendiary[2] timers need to be added.
-                debuffTimer[i] = debuffTimerBase[i];
-            }
-        }
 
-        if (debuff[0])
-        {
-            debuffTimer[0] -= 1 * Time.deltaTime;
+        if (slowTimer < 0) {
+            debuff[0] = false;
         }
-        else
-        {
-            walkingSpeed = walkingSpeedRegular;
+        if (poisonTimer < 0) {
+            debuff[1] = false;
+        }
+        if (incendiaryTimer < 0) {
+            debuff[2] = false;
         }
 
         if (debuff[1]) {
-            debuffTimer[1] -= 1 * Time.deltaTime;
+            poisonTimer -= 1 * Time.deltaTime;
+        } else if (!debuff[1]) {
+            poisonTimer = poisonTimerBase;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, target[index].transform.position, walkingSpeed);
-
-        if (debuff[2])
-        {
-            debuffTimer[2] -= 1 * Time.deltaTime;
+        if (debuff[0]) {
+            walkingSpeed = walkingSpeedDecreased;
+            slowTimer = -1 * Time.deltaTime;
+        } else if (!debuff[0]) {
+            walkingSpeed = walkingSpeedRegular;
+            slowTimer = slowTimerBase;
         }
 
-        if (transform.position != target[target.Count].transform.position) {
-            if (transform.position == target[index].transform.position) {
+        if (transform.position == targetMod && transform.position != new Vector3(target[target.Count - 1].transform.position.x, height, target[target.Count - 1].transform.position.z)) {
+            if (transform.position == targetMod) {
                 index++;
             }
         }
-        else
-        {
+
+        if (transform.position == new Vector3(target[target.Count - 1].transform.position.x, height, target[target.Count - 1].transform.position.z)) {
             canAttackCastle = true;
         }
     }
 
     public void OnTriggerEnter(Collider other) {
-        other.GetComponent<TowerHandler>().targets.Add(thisObject);
-    }
+        towerRef = other.GetComponent<TowerHandler>();
 
-    public void OnTriggerStay(Collider other) {
-        if(health <=0) {
-            other.GetComponent<TowerHandler>().targets.Remove(thisObject);
+        //This checkes if there are any enemies within range.
+        if (towerRef.state == TowerHandler.Team.teamOne && state == Team.teamTwo) {
+            if (!towerRef.targets.Contains(gameObject)) {
+                towerRef.targets.Add(gameObject);
+            }
+        }
+
+        if (towerRef.state == TowerHandler.Team.teamTwo && state == Team.teamOne && !towerRef.targets.Contains(gameObject)) {
+            towerRef.targets.Add(gameObject);
         }
     }
 
+    public void OnTriggerStay(Collider other) {
+
+        if (other.GetComponent<TowerHandler>().state == TowerHandler.Team.teamOne && state == Team.teamTwo) {
+            if (health < 1) {
+                other.GetComponent<TowerHandler>().targets.Remove(thisObject);
+            }
+        }
+
+        if (other.GetComponent<TowerHandler>().state == TowerHandler.Team.teamTwo && state == Team.teamOne) {
+            if (health < 1) {
+                other.GetComponent<TowerHandler>().targets.Remove(thisObject);
+            }
+        }
+    }
+
+
     public void OnTriggerExit(Collider other) {
-        other.GetComponent<TowerHandler>().targets.Remove(thisObject);
+
+        if (other.GetComponent<TowerHandler>().state == TowerHandler.Team.teamOne && state == Team.teamTwo) {
+            other.GetComponent<TowerHandler>().targets.Remove(thisObject);
+        }
+
+        if (other.GetComponent<TowerHandler>().state == TowerHandler.Team.teamTwo && state == Team.teamOne) {
+            other.GetComponent<TowerHandler>().targets.Remove(thisObject);
+        }
     }
 }

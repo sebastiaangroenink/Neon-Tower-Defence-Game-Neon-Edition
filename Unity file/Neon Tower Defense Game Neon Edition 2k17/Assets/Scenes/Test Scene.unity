@@ -151,11 +151,18 @@ MonoBehaviour:
   tileManager: {fileID: 0}
   mouseManager: {fileID: 1441451758}
   uiManager: {fileID: 814049655}
+  currencyManager: {fileID: 1421229947}
+  towerCosts: {fileID: 0}
   towerMaterials:
   - {fileID: 2100000, guid: 0c310f8e8db391d448aed7332cc4127e, type: 2}
   - {fileID: 2100000, guid: 92f0a05302d76274cb703b112f3b6ef2, type: 2}
   - {fileID: 2100000, guid: 0b7675e7cd0529f458a7e9a741bbd4cd, type: 2}
   - {fileID: 2100000, guid: 14b74c1ad0984e545ab13f69461de4fc, type: 2}
+  towerButtonList:
+  - {fileID: 341712556}
+  - {fileID: 252381418}
+  - {fileID: 1609878005}
+  - {fileID: 1876839154}
   tileMaterial: {fileID: 2100000, guid: c2b839504a8f54843bd436f97c258886, type: 2}
 --- !u!1 &147099808
 GameObject:
@@ -463,6 +470,7 @@ GameObject:
   - component: {fileID: 252381416}
   - component: {fileID: 252381418}
   - component: {fileID: 252381419}
+  - component: {fileID: 252381420}
   m_Layer: 5
   m_Name: Tower2
   m_TagString: Tile
@@ -584,6 +592,47 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &252381420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252381414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd54367ef210a5428c3c3073a53a1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 200
+--- !u!1 &274409038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 274409039}
+  m_Layer: 0
+  m_Name: TowerUpgrades
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &274409039
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 274409038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -36.1, y: -0.94094086, z: -6.292862}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1116826975}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &341712552
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,8 +645,9 @@ GameObject:
   - component: {fileID: 341712554}
   - component: {fileID: 341712556}
   - component: {fileID: 341712557}
+  - component: {fileID: 341712558}
   m_Layer: 5
-  m_Name: Tower1
+  m_Name: ArcherTower
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -717,88 +767,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &370367573
-GameObject:
+--- !u!114 &341712558
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 370367577}
-  - component: {fileID: 370367576}
-  - component: {fileID: 370367575}
-  - component: {fileID: 370367574}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &370367574
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 370367573}
+  m_GameObject: {fileID: 341712552}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!65 &370367575
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 370367573}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &370367576
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 370367573}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &370367577
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 370367573}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 481, y: 171, z: -109.75}
-  m_LocalScale: {x: 100, y: 350, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd54367ef210a5428c3c3073a53a1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 150
 --- !u!1 &444766296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,6 +1025,7 @@ Transform:
   - {fileID: 1372548546}
   - {fileID: 814049656}
   - {fileID: 113249729}
+  - {fileID: 1421229946}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1477,6 +1458,63 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1116826974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1116826975}
+  - component: {fileID: 1116826976}
+  m_Layer: 0
+  m_Name: Upgrade_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1116826975
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1116826974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 274409039}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1116826976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1116826974}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686ca1fd70926d3498bb109c5daba8b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Archer Tower
+  Description: Shoots single target arrows, High Range, Med damage.
+  sellPrice: 0
+  damage: 5
+  canAttack: 1
+  arialRangeScale: 0
+  projectileIntervalBase: 0.75
+  projectileSpeed: 0.5
+  debuff: 00000000
+  targets: []
+  allies: []
+  projectileReference: {fileID: 0}
+  troopRef: {fileID: 0}
+  state: 0
+  towerSkin: {fileID: 2100000, guid: 0c310f8e8db391d448aed7332cc4127e, type: 2}
+  ArealEffect: {fileID: 0}
+  projectile: {fileID: 1331850847074020, guid: 32182f11435f4a743bc577ae9bac3128, type: 2}
 --- !u!1 &1372548545
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1553,47 @@ Transform:
   m_Father: {fileID: 655607367}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1421229945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1421229946}
+  - component: {fileID: 1421229947}
+  m_Layer: 0
+  m_Name: CurrencyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1421229946
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1421229945}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -38.639023, y: -0.3912258, z: -8.25972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 655607367}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1421229947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1421229945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1acfa5ed2e1f59840a5701b19d47578a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currency: 1500
 --- !u!1 &1441451757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,6 +1623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileManager: {fileID: 0}
   buildMenu: {fileID: 113249730}
+  uiManager: {fileID: 0}
   tileHolder: {fileID: 0}
 --- !u!4 &1441451759
 Transform:
@@ -1790,6 +1870,7 @@ GameObject:
   - component: {fileID: 1609878003}
   - component: {fileID: 1609878005}
   - component: {fileID: 1609878006}
+  - component: {fileID: 1609878007}
   m_Layer: 5
   m_Name: Tower3
   m_TagString: Tile
@@ -1911,6 +1992,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1609878007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1609878001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd54367ef210a5428c3c3073a53a1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 300
 --- !u!1 &1791758857
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,6 +2409,7 @@ GameObject:
   - component: {fileID: 1876839155}
   - component: {fileID: 1876839154}
   - component: {fileID: 1876839158}
+  - component: {fileID: 1876839159}
   m_Layer: 5
   m_Name: Tower4
   m_TagString: Tile
@@ -2437,6 +2531,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1876839159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1876839153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd54367ef210a5428c3c3073a53a1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 400
 --- !u!1 &1879616665
 GameObject:
   m_ObjectHideFlags: 0

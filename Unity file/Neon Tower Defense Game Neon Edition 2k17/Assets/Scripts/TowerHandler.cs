@@ -8,18 +8,13 @@ public class TowerHandler : MonoBehaviour {
     public static int baseAttackSpeed = 10;
 
     public string name;
-    [Tooltip("The indexes in the debuff list are as following: [0] = Slow, [1] = Poison, [2] = Fire Damage, [3] = Heal Ability.")]
 
     public string Description;
 
-    public int price;
-    [Tooltip("Cost of a tower:")]
+    public int sellPrice;
+    [Tooltip("Sellprice of a tower:")]
 
-    public int health;
     public int damage;
-    public int speed;
-    public int attackSpeed;
-    public int healingAmount;
 
     private int index;
 
@@ -27,109 +22,99 @@ public class TowerHandler : MonoBehaviour {
 
     public float arialRangeScale;
 
-    public float projectileInterval;
+    private float projectileInterval;
+
     public float projectileIntervalBase;
     public float projectileSpeed;
 
-    public float healingCoolDownBase;
-    public float healingCoolDown;
-
+    [Tooltip("The indexes in the debuff list are as following: [0] = Slow, [1] = Poison, [2] = Fire Damage, [3] = Heal Ability.")]
     public List<bool> debuff = new List<bool>();
+
     public List<GameObject> targets = new List<GameObject>();
+    public List<GameObject> allies = new List<GameObject>();
 
-    public enum Team {teamOne, teamTwo}
+    public ProjectileHandler projectileReference;
+    public TroopsHandler troopRef;
+
+    public enum Team { teamOne, teamTwo }
     public Team state;
-
-    public bool isTroop;
 
     private bool isTeamOne;
     private bool isTeamTwo;
 
+    public Material towerSkin;
+    [Tooltip("This is the skin of the tower:")]
+
     public SphereCollider ArealEffect;
 
     public GameObject projectile;
-    public GameObject target;
 
     public void Awake() {
+        projectileInterval = projectileIntervalBase;
 
-        if(state == Team.teamOne) {
+        ArealEffect = gameObject.GetComponent<SphereCollider>();
+
+        if (state == Team.teamOne) {
             isTeamOne = true;
         }
 
-        if(state == Team.teamTwo) {
+        if (state == Team.teamTwo) {
             isTeamTwo = true;
         }
     }
 
     public void Update() {
-        for (int i = 1; i <= targets.Count; i++) {
+        index = Random.Range(0, targets.Count - 1);
+
+        for (int i = 1; i <= targets.Count - 1; i++) {
             if (targets[i] == null)
                 targets.RemoveAt(i);
         }
 
-        ArealEffect.radius = arialRangeScale;
 
-        if (healingCoolDown != 0) {
-            healingCoolDown -= 1 * Time.deltaTime;
-        }
+        ArealEffect.radius = arialRangeScale;
 
         if (projectileInterval != 0) {
             projectileInterval -= 1 * Time.deltaTime;
         }
 
-        if(projectileInterval < 0) {
+        if (projectileInterval < 0) {
             projectileInterval = 0;
         }
 
-        if (healingCoolDown < 0) {
-            healingCoolDown = 0;
-        }
-
-        if(projectileInterval == 0 ) {
-            for (int i = 1; i <= targets.Count; i++) {
-                if(targets[i] != null) 
-                FiringProjectile();
-            }
-        }
-    }
-
-    public void OnCollisionEnter(Collision c) {
-        index = Random.Range(0, targets.Count);
-
-        if (debuff[3] && healingCoolDown == 0 && isTroop)
-        {
-
-            healingCoolDown = healingCoolDownBase;
-
-            if (state == Team.teamOne && c.transform.GetComponent<TroopsHandler>().state == TroopsHandler.Team.teamOne)
-            {
-                c.transform.GetComponent<TroopsHandler>().health += healingAmount;
-                print("Healing TeamOne Members within range!");
-            }
-            else if (state == Team.teamTwo && c.transform.GetComponent<TroopsHandler>().state == TroopsHandler.Team.teamTwo)
-            {
-                c.transform.GetComponent<TroopsHandler>().health += healingAmount;
-                print("Healing TeamTwo Members within range!");
+        if (projectileInterval == 0 && canAttack) {
+            for (int i = 0; i < targets.Count; i++) {
+                if (targets[i] != null)
+                    FiringProjectile();
+                projectileInterval = projectileIntervalBase;
             }
         }
     }
 
     public void FiringProjectile() {
-        Instantiate(projectile, transform.position, target.transform.rotation);
-        projectile.GetComponent<ProjectileHandler>().debuffs = debuff;
-        projectile.GetComponent<ProjectileHandler>().damage = damage;
-        projectile.GetComponent<ProjectileHandler>().state = ProjectileHandler.Team.teamOne;
-        projectile.GetComponent<ProjectileHandler>().target = targets[index].transform.position;
-        projectile.GetComponent<ProjectileHandler>().projectileSpeed = projectileSpeed;
+        GameObject projectileTower = projectile;
         projectileInterval = projectileIntervalBase;
 
-        if (isTeamOne)
-        {
-            projectile.GetComponent<ProjectileHandler>().state = ProjectileHandler.Team.teamOne;
+        if (isTeamOne == true) {
+            Instantiate(projectileTower, transform.position, Quaternion.identity);
+            projectileReference.debuffs = debuff;
+            projectileReference.damage = damage;
+            projectileReference.state = ProjectileHandler.Team.teamOne;
+            projectileReference.target = targets[index].transform.position;
+            projectileReference.projectileSpeed = projectileSpeed;
+            projectileInterval = projectileIntervalBase;
+            print("Shooting missle harmful to team Two");
         }
-        else if (isTeamTwo)
-        {
-            projectile.GetComponent<ProjectileHandler>().state = ProjectileHandler.Team.teamTwo;
+
+        if (isTeamTwo == true) {
+            Instantiate(projectileTower, transform.position, Quaternion.identity);
+            projectileReference.debuffs = debuff;
+            projectileReference.damage = damage;
+            projectileReference.state = ProjectileHandler.Team.teamTwo;
+            projectileReference.target = targets[index].transform.position;
+            projectileReference.projectileSpeed = projectileSpeed;
+            projectileInterval = projectileIntervalBase;
+            print("Shooting missle harmful to team one");
         }
     }
 }
