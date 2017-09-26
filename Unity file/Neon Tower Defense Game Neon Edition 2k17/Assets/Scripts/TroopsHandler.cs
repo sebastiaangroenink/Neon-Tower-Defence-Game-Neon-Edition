@@ -26,15 +26,7 @@ public class TroopsHandler : MonoBehaviour {
     public bool canAttackCastle;
     public bool isTroop = true;
 
-    public float poisonTimerBase;
-    public float incendiaryTimerBase;
-    public float slowTimerBase;
-
-    private float poisonTimer;
-    private float incendiaryTimer;
-    private float slowTimer;
-
-    private float gameTick = 1;
+    private float gameTick = 1.0f;
 
     public List<bool> debuff = new List<bool>();
     public List<float> debuffTimerBase = new List<float>();
@@ -87,14 +79,10 @@ public class TroopsHandler : MonoBehaviour {
         else
         {
             walkingSpeed = walkingSpeedRegular;
-            slowTimer = debuffTimerBase[0];
         }
 
         if (debuff[1]) {
             debuffTimer[1] -= 1 * Time.deltaTime;
-        }
-        else{
-            poisonTimer = debuffTimerBase[1];
         }
 
         transform.position = Vector3.MoveTowards(transform.position, target[index].transform.position, walkingSpeed);
@@ -102,10 +90,6 @@ public class TroopsHandler : MonoBehaviour {
         if (debuff[2])
         {
             debuffTimer[2] -= 1 * Time.deltaTime;
-        }
-        else
-        {
-            incendiaryTimer = debuffTimerBase[2];
         }
 
         if (transform.position != target[target.Count].transform.position) {
@@ -125,7 +109,7 @@ public class TroopsHandler : MonoBehaviour {
 
     public void OnTriggerStay(Collider other) {
         if(health <=0) {
-            other.GetComponent<TowerHandler>().targets.Remove(thisObject); //Is dit echt nodig?
+            other.GetComponent<TowerHandler>().targets.Remove(thisObject);
         }
     }
 

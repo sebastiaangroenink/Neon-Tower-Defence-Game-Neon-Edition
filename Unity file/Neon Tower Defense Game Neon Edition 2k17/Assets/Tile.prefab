@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 222179823053007008}
   - component: {fileID: 114550903401875662}
   - component: {fileID: 65027296409320088}
+  - component: {fileID: 114532510710236512}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Tile
@@ -164,6 +165,39 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114532510710236512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165247075479796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686ca1fd70926d3498bb109c5daba8b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  Description: 
+  price: 0
+  health: 0
+  damage: 0
+  speed: 0
+  attackSpeed: 0
+  healingAmount: 0
+  canAttack: 0
+  arialRangeScale: 0
+  projectileInterval: 0
+  projectileIntervalBase: 0
+  projectileSpeed: 0
+  healingCoolDownBase: 0
+  healingCoolDown: 0
+  debuff: 
+  targets: []
+  state: 0
+  isTroop: 0
+  ArealEffect: {fileID: 0}
+  projectile: {fileID: 0}
+  target: {fileID: 0}
 --- !u!114 &114550903401875662
 MonoBehaviour:
   m_ObjectHideFlags: 1

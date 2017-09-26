@@ -17,7 +17,8 @@ public class ProjectileHandler : MonoBehaviour {
     public List<bool> debuffs = new List<bool>();
 
     public void Update() {
-        transform.position = Vector3.MoveTowards(transform.position, target, projectileSpeed);
+        MoveTroops();
+
     }
 
     public void OnCollisionEnter(Collision c) {
@@ -31,5 +32,10 @@ public class ProjectileHandler : MonoBehaviour {
             c.transform.GetComponent<TroopsHandler>().health = -damage;
             Destroy(gameObject);
         }
+    }
+
+    public void MoveTroops()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, target, projectileSpeed);
     }
 }
