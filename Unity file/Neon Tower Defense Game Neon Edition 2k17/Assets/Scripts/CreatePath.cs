@@ -10,8 +10,8 @@ public class CreatePath : MonoBehaviour {
         canDestroy = true;
     }
 
-    public void Update() {
-        canDestroy = false;
+    public void LateUpdate() {
+        Destroy(transform.gameObject);
     }
 
     public void OnCollisionEnter(Collision col)
