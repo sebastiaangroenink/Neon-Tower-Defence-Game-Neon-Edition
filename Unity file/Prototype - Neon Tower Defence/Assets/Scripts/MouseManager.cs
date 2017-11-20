@@ -7,6 +7,7 @@ public class MouseManager : MonoBehaviour {
     public RaycastHit hit;
 
     public TileManager tileManager;
+    public BuildManager buildManager;
 
     public GameObject towerHolder;
 
@@ -26,6 +27,7 @@ public class MouseManager : MonoBehaviour {
             {
                     tileManager = hit.transform.GetComponent<TileManager>();
                     tileManager.isActive = true;
+                    buildManager.TowerManagement();
             }
         }
     }
@@ -38,6 +40,7 @@ public class MouseManager : MonoBehaviour {
             {
                 tileManager.isActive = false;
                 tileManager = null;
+                buildManager.TowerManagement();
             }
         }
     }

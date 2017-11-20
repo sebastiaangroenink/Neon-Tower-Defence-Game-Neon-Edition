@@ -21,12 +21,11 @@ public class BuildManager : MonoBehaviour {
     public void TowerManagement()
     {
         tileManager = mouseManager.tileManager;
-
-        if(tileManager != null && tileManager.isActive)
+        if (tileManager != null && tileManager.isActive)
         {
             if (!tileManager.hasBuilding)
             {
-                for(int towerMaterials =0; towerMaterials<uiManager.towerButtons.Count; towerMaterials++)
+                for (int towerMaterials = 0; towerMaterials < uiManager.towerButtons.Count; towerMaterials++)
                 {
                     uiManager.SetTowers(1);
                     uiManager.sellButon.gameObject.SetActive(false);
@@ -35,8 +34,13 @@ public class BuildManager : MonoBehaviour {
             else
             {
                 uiManager.SetTowers(0);
+                print("4");
                 uiManager.sellButon.gameObject.SetActive(true);
             }
+        }
+        else
+        {
+            uiManager.SetTowers(0);
         }
     }
 
@@ -51,6 +55,7 @@ public class BuildManager : MonoBehaviour {
             tileManager.hasBuilding = true;
             tileManager.GetComponent<Renderer>().material = towerMaterials[towerInt];
             tileManager.GetComponent<TowerManager>().enabled = true;
+            tileManager.GetComponent<TowerManager>().FirstSpawned(towerInt);
 
             //temporarily
             print(currencyManager.currency);
